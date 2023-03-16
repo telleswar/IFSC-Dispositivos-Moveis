@@ -2,16 +2,19 @@ package com.ifsc.meuapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragment_b#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_b extends Fragment {
+public class fragment_b extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +28,9 @@ public class fragment_b extends Fragment {
     public fragment_b() {
         // Required empty public constructor
     }
+
+    Button btnAbrirFragA;
+    TextView txtMsg;
 
     /**
      * Use this factory method to create a new instance of
@@ -57,6 +63,25 @@ public class fragment_b extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_b, container, false);
+        View v = inflater.inflate(R.layout.fragment_b, container, false);
+        TextView txt = v.findViewById(R.id.edText);
+        if (getArguments() != null) {
+            txt.setText(getArguments().getString("msg"));
+        }
+        txtMsg = v.findViewById(R.id.edText);
+        btnAbrirFragA = v.findViewById(R.id.btnAbrirFragA);
+        btnAbrirFragA.setOnClickListener(this);
+        return v;
+    }
+
+    @Override
+    public void onClick(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Bundle b = new Bundle();
+        b.putString("msg",txtMsg.getText().toString());
+        Fragment fragA = new fragment_a();
+        fragA.setArguments(b);
+        ft.replace(R.id.framemain,fragA);
+        ft.commit();
     }
 }

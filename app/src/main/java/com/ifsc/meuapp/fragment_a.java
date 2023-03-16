@@ -31,6 +31,7 @@ public class fragment_a extends Fragment implements  View.OnClickListener {
 
     EditText edMsg;
     Button btnAbrirFragB;
+    View v;
 
     /**
      * Use this factory method to create a new instance of
@@ -63,16 +64,19 @@ public class fragment_a extends Fragment implements  View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_a, container, false);
+        v = inflater.inflate(R.layout.fragment_a, container, false);
         edMsg = v.findViewById(R.id.edMsg);
         btnAbrirFragB = v.findViewById(R.id.btnAbrirFragB);
         btnAbrirFragB.setOnClickListener(this);
+        if (getArguments() != null) {
+            edMsg.setText(getArguments().getString("msg"));
+        }
         return v;
     }
 
     @Override
     public void onClick(View view) {
-        FragmentTransaction ft = this.getParentFragment().getFragmentManager().beginTransaction();
+        FragmentTransaction ft =  getFragmentManager().beginTransaction();
         Bundle b = new Bundle();
         b.putString("msg",edMsg.getText().toString());
         Fragment fragB = new fragment_b();
