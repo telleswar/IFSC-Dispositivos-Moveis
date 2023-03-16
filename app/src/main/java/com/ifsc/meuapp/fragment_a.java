@@ -2,16 +2,19 @@ package com.ifsc.meuapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragment_a#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_a extends Fragment {
+public class fragment_a extends Fragment implements  View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +28,9 @@ public class fragment_a extends Fragment {
     public fragment_a() {
         // Required empty public constructor
     }
+
+    EditText edMsg;
+    Button btnAbrirFragB;
 
     /**
      * Use this factory method to create a new instance of
@@ -57,6 +63,21 @@ public class fragment_a extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_a, container, false);
+        View v = inflater.inflate(R.layout.fragment_a, container, false);
+        edMsg = v.findViewById(R.id.edMsg);
+        btnAbrirFragB = v.findViewById(R.id.btnAbrirFragB);
+        btnAbrirFragB.setOnClickListener(this);
+        return v;
+    }
+
+    @Override
+    public void onClick(View view) {
+        FragmentTransaction ft = this.getParentFragment().getFragmentManager().beginTransaction();
+        Bundle b = new Bundle();
+        b.putString("msg",edMsg.getText().toString());
+        Fragment fragB = new fragment_b();
+        fragB.setArguments(b);
+        ft.replace(R.id.framemain,fragB);
+        ft.commit();
     }
 }
