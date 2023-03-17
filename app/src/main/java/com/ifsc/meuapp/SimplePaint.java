@@ -27,7 +27,7 @@ public class SimplePaint extends View {
 
         mPaint.setColor(Color.BLACK);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(5);
+        mPaint.setStrokeWidth(10);
 
     }
 
