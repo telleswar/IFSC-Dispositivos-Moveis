@@ -81,7 +81,7 @@ public class fragment_a extends Fragment implements  View.OnClickListener {
         b.putString("msg",edMsg.getText().toString());
         Fragment fragB = new fragment_b();
         fragB.setArguments(b);
-        ft.replace(R.id.framemain,fragB);
+        //ft.replace(R.id.framemain,fragB);
         ft.commit();
     }
 }
